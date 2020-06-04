@@ -18,7 +18,7 @@ function checkFuel(fuelThreshold)
 			fuelLevel = turtle.getFuelLevel()
 
 			-- If found a slot where there is a source a fuel, refuel until there is no item left or the fuelLevel is abose the fuelThreshold
-			while hasRefueled and fuelLevel < 10 do
+			while hasRefueled and fuelLevel < fuelThreshold do
 				hasRefueled = turtle.refuel(1)
 				fuelLevel = turtle.getFuelLevel()
 			end
@@ -55,6 +55,7 @@ end
 
 -- Main
 local success, frontBlock, topBlock, bottomBlock
+local fuelThreshold = 200
 
 while true do
 
@@ -102,8 +103,8 @@ while true do
 			turtle.suckDown()
 			local fuelLevel = turtle.getFuelLevel()
 
-			while fuelLevel < 200 do
-				checkFuel(200)
+			while fuelLevel <= fuelThreshold do
+				checkFuel(fuelThreshold)
 				turtle.select(1)
 				turtle.dropDown()
 				turtle.suckDown()
