@@ -1,8 +1,3 @@
-data = inspect("up")
-print(data.name)
-print(data.metadata)
-
-
 function inspect(direction)
 	local success, data
 	
@@ -10,7 +5,7 @@ function inspect(direction)
 		success, data = turtle.inspectUp()
 	elseif direction == "down" then
 		success, data = turtle.inspectDown()
-	elseif direction == nil
+	elseif direction == nil then
 		success, data = turtle.inspect()
 	end
 
@@ -20,3 +15,8 @@ function inspect(direction)
 		return nil
 	end
 end
+
+
+data = inspect("up")
+print(data.name)
+print(data.metadata)
