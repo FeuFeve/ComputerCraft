@@ -3,7 +3,7 @@ print(data.name)
 print(data.metadata)
 
 
-function inspect(direction):
+function inspect(direction)
 	local success, data
 	
 	if direction == "up" then
