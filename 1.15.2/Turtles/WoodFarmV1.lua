@@ -17,6 +17,22 @@ function inspect(direction)
 end
 
 
+print("### UP ###")
 data = inspect("up")
+print(data.name)
+print(data.metadata)
+
+print("### FRONT ###")
+data = inspect()
+print(data.name)
+print(data.metadata)
+
+print("### DOWN ###")
+data = inspect("down")
+print(data.name)
+print(data.metadata)
+
+print("### OTHER ###")
+data = inspect("left")
 print(data.name)
 print(data.metadata)
