@@ -103,8 +103,9 @@ while true do
 			turtle.suckDown()
 			local fuelLevel = turtle.getFuelLevel()
 
-			while fuelLevel <= fuelThreshold do
+			while fuelLevel < fuelThreshold do
 				checkFuel(fuelThreshold)
+				fuelLevel = turtle.getFuelLevel()
 				turtle.select(1)
 				turtle.dropDown()
 				turtle.suckDown()
