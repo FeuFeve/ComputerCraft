@@ -1,3 +1,59 @@
+-------------------------
+--   Made by FeuFeve   --
+-------------------------
+
+
+-- Used to refuel the turtle by checking each slot of the inventory
+-- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
+function checkFuel(fuelThreshold)
+	fuelThreshold = fuelThreshold or 1
+	local fuelLevel = turtle.getFuelLevel()
+
+	while fuelLevel < fuelThreshold do
+
+		-- Try to refuel on each inventory slot
+		for i = 1, 16 do
+			turtle.select(i)
+			hasRefueled = turtle.refuel(1)
+			fuelLevel = turtle.getFuelLevel()
+
+			-- If found a slot where there is a source a fuel, refuel until there is no item left or the fuelLevel is abose the fuelThreshold
+			while hasRefueled and fuelLevel < 10 do
+				hasRefueled = turtle.refuel(1)
+				fuelLevel = turtle.getFuelLevel()
+			end
+
+			-- Check if the fuelLevel is ok (above fuelThreshold), if so end the function
+			if fuelLevel >= fuelThreshold then
+				break
+			end
+		end
+	end
+end
+
+
+-- Used to drop the turtle's inventory in a chest located under the turtle
+function dropInventoryDown(from, to)
+	from = from or 1
+	to = to or 16
+
+	if from == 1 and to == 16 then
+		write("Dropping all the inventory inside of the the chest below...")
+	else
+		write("Dropping the inventory from slot "..from.." to "..to.."...")
+	end
+
+	for i = from, to do
+		turtle.select(i)
+		turtle.dropDown()
+	end
+
+	print(" Done.")
+end
+
+
+
+-- Main
 local success, frontBlock, topBlock, bottomBlock
 
 while true do
@@ -63,53 +119,4 @@ while true do
 		-- if bottomBlock.name == ""
 
 	turtle.forward()
-end
-
-
--- Used to refuel the turtle by checking each slot of the inventory
--- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
-function checkFuel(fuelThreshold)
-	fuelThreshold = fuelThreshold or 1
-	local fuelLevel = turtle.getFuelLevel()
-
-	while fuelLevel < fuelThreshold do
-
-		-- Try to refuel on each inventory slot
-		for i = 1, 16 do
-			turtle.select(i)
-			hasRefueled = turtle.refuel(1)
-			fuelLevel = turtle.getFuelLevel()
-
-			-- If found a slot where there is a source a fuel, refuel until there is no item left or the fuelLevel is abose the fuelThreshold
-			while hasRefueled and fuelLevel < 10 do
-				hasRefueled = turtle.refuel(1)
-				fuelLevel = turtle.getFuelLevel()
-			end
-
-			-- Check if the fuelLevel is ok (above fuelThreshold), if so end the function
-			if fuelLevel >= fuelThreshold then
-				break
-			end
-		end
-	end
-end
-
-
--- Used to drop the turtle's inventory in a chest located under the turtle
-function dropInventoryDown(from, to)
-	from = from or 1
-	to = to or 16
-
-	if from == 1 and to == 16 then
-		write("Dropping all the inventory inside of the the chest below...")
-	else
-		write("Dropping the inventory from slot "..from.." to "..to.."...")
-	end
-
-	for i = from, to do
-		turtle.select(i)
-		turtle.dropDown()
-	end
-
-	print(" Done.")
 end
