@@ -8,9 +8,9 @@ while true do
 	-- Front block (turn right/left)
 	success, frontBlock = turtle.inspect()
 	if success then
-		if frontBlock.name = "minecraft:red_wool" then
+		if frontBlock.name == "minecraft:red_wool" then
 			turtle.turnRight()
-		elseif frontBlock.name = "minecraft:yellow_wool" then
+		elseif frontBlock.name == "minecraft:yellow_wool" then
 			turtle.turnLeft()
 		end
 	end
