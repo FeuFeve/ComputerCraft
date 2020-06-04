@@ -68,7 +68,8 @@ end
 
 -- Used to refuel the turtle by checking each slot of the inventory
 -- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
-function checkFuel(fuelThreshold = 1)
+function checkFuel(fuelThreshold)
+	fuelThreshold = fuelThreshold or 1
 	local fuelLevel = turtle.getFuelLevel()
 
 	while fuelLevel < fuelThreshold do
@@ -95,7 +96,10 @@ end
 
 
 -- Used to drop the turtle's inventory in a chest located under the turtle
-function dropInventoryDown(from = 1, to = 16)
+function dropInventoryDown(from, to)
+	from = from or 1
+	to = to or 16
+
 	if from == 1 and to == 16 then
 		write("Dropping all the inventory inside of the the chest below...")
 	else
