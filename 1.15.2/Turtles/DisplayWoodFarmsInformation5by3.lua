@@ -1,3 +1,8 @@
+-------------------------
+--   Made by FeuFeve   --
+-------------------------
+
+
 local m = peripheral.wrap("right")
 
 m.setTextScale(1.5)
@@ -31,7 +36,7 @@ function display()
 	m.setCursorPos(5, 7)
 	m.write("Logs chopped: "..logsChopped)
 
-	if fuelUsed ~= 0 then -- Avoid "division by 0" error
+	if logsChopped ~= 0 and fuelUsed ~= 0 then -- Avoid "division by 0" error
 		m.setCursorPos(3, 9)
 		m.write("Ratio fuel/log: "..round(fuelUsed/logsChopped, 2))
 	end
