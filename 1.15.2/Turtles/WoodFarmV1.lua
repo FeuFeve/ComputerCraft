@@ -94,6 +94,8 @@ local function cutTree()
 			elseif endsWith(bottomBlock.name, "leaves") then
 				turtle.digDown()
 				turtle.down()
+			elseif endsWith(bottomBlock.name, "sapling") then
+				break
 			end
 		else
 			turtle.down()
