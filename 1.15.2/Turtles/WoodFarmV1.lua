@@ -58,6 +58,13 @@ local function dropInventoryDown(from, to)
 end
 
 
+-- Used to plant a sapling
+local function plantTree()
+	turtle.select(2)
+	turtle.placeDown()
+end
+
+
 -- Used to cut a tree
 local function cutTree()
 	-- Cut the tree (go up)
@@ -91,13 +98,6 @@ local function cutTree()
 			turtle.down()
 		end
 	end
-end
-
-
--- Used to plant a sapling
-local function plantTree()
-	turtle.select(2)
-	turtle.placeDown()
 end
 
 
