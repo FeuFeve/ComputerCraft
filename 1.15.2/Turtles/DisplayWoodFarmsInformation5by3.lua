@@ -4,6 +4,7 @@
 
 
 local m = peripheral.wrap("right")
+rednet.open("left")
 
 m.setTextScale(1.5)
 m.setTextColor(colors.white)
