@@ -108,6 +108,13 @@ end
 local function init()
 	checkFuel()
 
+	local success, bottomBlock = turtle.inspectDown()
+	if success then
+		if not endsWith(bottomBlock.name, "log") and not endsWith(bottomBlock.name, "leaves") then
+			return
+		end
+	end
+
 	local success, topBlock = turtle.inspectUp()
 	if success then
 		if endsWith(topBlock.name, "log") or endsWith(topBlock.name, "leaves") then
