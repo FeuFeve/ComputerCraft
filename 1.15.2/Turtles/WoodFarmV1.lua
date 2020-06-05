@@ -3,9 +3,6 @@
 -------------------------
 
 
--- Used for displaying information about the farm
-local treesCut, logsChopped, fuelUsed, ratioFuelPerLog = 0, 0, 0, 0
-
 -- Used to know if a certain bloc is a log ("minecraft:oak_log" for example)
 local function endsWith(str, ending)
    return ending == "" or str:sub(-#ending) == ending
@@ -76,10 +73,10 @@ local function cutTree()
 		if success then
 			if endsWith(topBlock.name, "log") then
 				turtle.digUp()
-				logsChopped += 1
+				rednet.send(farmCentralComputerID, "log")
 
 				turtle.up()
-				fuelUsed += 1
+				rednet.send(farmCentralComputerID, "fuel")
 
 				checkFuel()
 			else
@@ -96,24 +93,24 @@ local function cutTree()
 		if success then
 			if endsWith(bottomBlock.name, "log") then
 				turtle.digDown()
-				logsChopped += 1
+				rednet.send(farmCentralComputerID, "log")
 
 				plantTree()
 				break
 			elseif endsWith(bottomBlock.name, "leaves") then
 				turtle.digDown()
 				turtle.down()
-				fuelUsed += 1
+				rednet.send(farmCentralComputerID, "fuel")
 			elseif endsWith(bottomBlock.name, "sapling") then
 				break
 			end
 		else
 			turtle.down()
-			fuelUsed += 1
+			rednet.send(farmCentralComputerID, "fuel")
 		end
 	end
 
-	treesCut += 1
+	rednet.send(farmCentralComputerID, "tree")
 end
 
 
@@ -133,18 +130,18 @@ local function init()
 		if endsWith(topBlock.name, "log") or endsWith(topBlock.name, "leaves") then
 			turtle.digUp()
 			if endsWith(topBlock.name, "log") then
-				logsChopped += 1
+				rednet.send(farmCentralComputerID, "log")
 			end
 
 			turtle.up()
-			fuelUsed += 1
+			rednet.send(farmCentralComputerID, "fuel")
 
 			checkFuel()
 			cutTree()
 		end
 	else
 		turtle.up()
-		fuelUsed += 1
+		rednet.send(farmCentralComputerID, "fuel")
 
 		checkFuel()
 		cutTree()
@@ -156,6 +153,9 @@ end
 -- Main
 local success, frontBlock, topBlock, bottomBlock
 local fuelThreshold = 200
+
+rednet.open("left")
+local farmCentralComputerID = 1 -- TO CHANGE
 
 init()
 
@@ -173,7 +173,7 @@ while true do
 			turtle.turnLeft()
 		elseif endsWith(frontBlock.name, "log") then
 			turtle.dig()
-			logsChopped += 1
+			rednet.send(farmCentralComputerID, "log")
 		elseif endsWith(frontBlock.name, "leaves") then
 			turtle.dig()
 		end
@@ -231,7 +231,7 @@ while true do
 		if endsWith(bottomBlock.name, "log") then
 			-- Cut the last log (trunk) and replant a sapling
 			turtle.digDown()
-			logsChopped += 1
+			rednet.send(farmCentralComputerID, "log")
 
 			plantTree()
 		end
@@ -241,5 +241,5 @@ while true do
 
 
 	turtle.forward()
-	fuelUsed += 1
+	rednet.send(farmCentralComputerID, "fuel")
 end
