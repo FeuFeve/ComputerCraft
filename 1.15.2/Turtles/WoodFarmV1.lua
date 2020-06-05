@@ -58,6 +58,49 @@ local function dropInventoryDown(from, to)
 end
 
 
+-- Used to cut a tree
+local function cutTree()
+	-- Cut the tree (go up)
+	while true do
+		local success, topBlock = turtle.inspectUp()
+		if success then
+			if endsWith(topBlock.name, "log") then
+				turtle.digUp()
+				turtle.up()
+				checkFuel()
+			else
+				break
+			end
+		else
+			break
+		end
+	end
+
+	-- Go back down, cut the last log (trunk) and replace it with a sapling
+	while true do
+		local success, bottomBlock = turtle.inspectDown()
+		if success then
+			if endsWith(bottomBlock.name, "log") then
+				turtle.digDown()
+				plantTree()
+				break
+			else
+				turtle.down()
+			end
+		else
+			turtle.down()
+		end
+	end
+end
+
+
+-- Used to plant a sapling
+local function plantTree()
+	turtle.select(2)
+	turtle.placeDown()
+end
+
+
 
 -- Main
 local success, frontBlock, topBlock, bottomBlock
@@ -83,25 +126,28 @@ while true do
 	-- Top block (manage inventory/chest)
 	success, topBlock = turtle.inspectUp()
 	if success then
-		if topBlock.name == "minecraft:brown_wool" then
+		if endsWith(topBlock.name, "log") then
+			cutTree()
+
+		elseif topBlock.name == "minecraft:brown_wool" then
 			-- Drop all the inventory in the chest under
 			dropInventoryDown()
 
 		elseif topBlock.name == "minecraft:green_wool" then
-			-- Get sapplings until the chest is empty or the turtle has at least 16
-			write("Collecting sapplings in the chest below...")
+			-- Get saplings until the chest is empty or the turtle has at least 16
+			write("Collecting saplings in the chest below...")
 
 			turtle.select(2)
 			turtle.suckDown()
-			local sapplingsCount = turtle.getItemCount(2)
+			local saplingsCount = turtle.getItemCount(2)
 
-			while sapplingsCount < 16 do
+			while saplingsCount < 16 do
 				turtle.dropDown()
 				turtle.suckDown()
-				sapplingsCount = turtle.getItemCount(2)
+				saplingsCount = turtle.getItemCount(2)
 			end
 
-			print("Done (has "..turtle.getItemCount(2).." sapplings).")
+			print("Done (has "..turtle.getItemCount(2).." saplings).")
 
 		elseif topBlock.name == "minecraft:black_wool" then
 			-- Get a fuel source from the chest under and refuel until a certain threshold is exceeded
@@ -124,9 +170,17 @@ while true do
 	end
 
 	-- Bottom block
-	-- success, bottomBlock = turtle.inspectDown()
-	-- if success then
-		-- if bottomBlock.name == ""
+	success, bottomBlock = turtle.inspectDown()
+	if success then
+		if endsWith(bottomBlock.name, "log") then
+			-- Cut the last log (trunk) and replant a sapling
+			turtle.digDown()
+			plantTree()
+		end
+	else
+		plantTree()
+	end
+
 
 	turtle.forward()
 end
