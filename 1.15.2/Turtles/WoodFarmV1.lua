@@ -155,7 +155,7 @@ local success, frontBlock, topBlock, bottomBlock
 local fuelThreshold = 200
 
 rednet.open("left")
-local farmCentralComputerID = 1 -- TO CHANGE
+farmCentralComputerID = 1 -- TO CHANGE
 
 init()
 
