@@ -3,9 +3,15 @@
 -------------------------
 
 
+-- Used to know if a certain bloc is a log ("minecraft:oak_log" for example)
+local function endsWith(str, ending)
+   return ending == "" or str:sub(-#ending) == ending
+end
+
+
 -- Used to refuel the turtle by checking each slot of the inventory
 -- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
-function checkFuel(fuelThreshold)
+local function checkFuel(fuelThreshold)
 	fuelThreshold = fuelThreshold or 1
 	local fuelLevel = turtle.getFuelLevel()
 
@@ -33,7 +39,7 @@ end
 
 
 -- Used to drop the turtle's inventory in a chest located under the turtle
-function dropInventoryDown(from, to)
+local function dropInventoryDown(from, to)
 	from = from or 1
 	to = to or 16
 
@@ -69,6 +75,8 @@ while true do
 			turtle.turnRight()
 		elseif frontBlock.name == "minecraft:yellow_wool" then
 			turtle.turnLeft()
+		elseif endsWith(frontBlock.name, "log") then
+			turtle.dig()
 		end
 	end
 
@@ -111,7 +119,7 @@ while true do
 				turtle.suckDown()
 			end
 
-			print("Done (fuel level: "..turtle.getFuelLevel..", fuel sources: "..turtle.getItemCount(1)..").")
+			print("Done (fuel level: "..turtle.getFuelLevel()..", fuel sources: "..turtle.getItemCount(1)..").")
 		end
 	end
 
