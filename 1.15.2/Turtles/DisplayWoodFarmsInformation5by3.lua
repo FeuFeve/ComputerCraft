@@ -8,6 +8,7 @@ local acceptedIDs = {0} -- TO CHANGE WITH THE TURTLES' IDs
 local m = peripheral.wrap("right") -- TO CHANGE
 rednet.open("left") -- TO CHANGE
 
+
 term.clear()
 term.setCursorPos(2, 2)
 write("Displaying information about the wood farms...")
