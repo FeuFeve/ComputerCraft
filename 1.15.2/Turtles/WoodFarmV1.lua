@@ -132,7 +132,7 @@ local function cutTree()
 			else
 				turtle.digUp()
 				turtle.up()
-				send(farmCentralComputerID, "fuel")
+				rednet.send(farmCentralComputerID, "fuel")
 				break;
 			end
 		else
