@@ -13,6 +13,14 @@ local function endsWith(str, ending)
 end
 
 
+-- Used to display a message on the turtle's screen
+local function updateMessage(message)
+	term.clear()
+	term.setCursorPos(2, 2)
+	write(message)
+end
+
+
 -- Used to refuel the turtle by checking each slot of the inventory
 -- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
 local function checkFuel(fuelThreshold)
@@ -154,14 +162,6 @@ local function init()
 		checkFuel()
 		cutTree()
 	end
-end
-
-
--- Used to display a message on the turtle's screen
-local function updateMessage(message)
-	term.clear()
-	term.setCursorPos(2, 2)
-	write(message)
 end
 
 
