@@ -3,14 +3,19 @@
 -------------------------
 
 
-local m = peripheral.wrap("right")
-rednet.open("left")
+local acceptedIDs = {0} -- TO CHANGE WITH THE TURTLES' IDs
+
+local m = peripheral.wrap("right") -- TO CHANGE
+rednet.open("left") -- TO CHANGE
+
+term.clear()
+term.setCursorPos(2, 2)
+write("Displaying information about the wood farms...")
 
 m.setTextScale(1.5)
 m.setTextColor(colors.white)
 
 local logsChopped, treesCut, fuelUsed = 0, 0, 0
-local acceptedIDs = {0}
 
 function round(num, numDecimalPlaces)
   return tonumber(string.format("%." .. (numDecimalPlaces or 0) .. "f", num))
