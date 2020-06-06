@@ -77,7 +77,7 @@ local function plantTree()
 		for i = 1, 16 do
 			turtle.select(i)
 
-			local item = turtle.getItemDetail()
+			item = turtle.getItemDetail()
 			if endsWith(item.name, "sapling") then
 				turtle.placeDown()
 				break
@@ -195,6 +195,9 @@ while true do
 			rednet.send(farmCentralComputerID, "log")
 		elseif endsWith(frontBlock.name, "leaves") then
 			turtle.dig()
+		elseif endsWith(frontBlock.name, "sapling") then
+			turtle.up()
+			rednet.send(farmCentralComputerID, "fuel")
 		end
 	end
 
