@@ -129,6 +129,11 @@ local function cutTree()
 				rednet.send(farmCentralComputerID, "fuel")
 			elseif endsWith(bottomBlock.name, "sapling") then
 				break
+			else
+				turtle.digUp()
+				turtle.up()
+				send(farmCentralComputerID, "fuel")
+				break;
 			end
 		else
 			turtle.down()
