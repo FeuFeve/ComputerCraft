@@ -69,7 +69,21 @@ end
 -- Used to plant a sapling
 local function plantTree()
 	turtle.select(2)
-	turtle.placeDown()
+
+	local item = turtle.getItemDetail()
+	if endsWith(item.name, "sapling") then
+		turtle.placeDown()
+	else
+		for i = 1, 16 do
+			turtle.select(i)
+
+			local item = turtle.getItemDetail()
+			if endsWith(item.name, "sapling") then
+				turtle.placeDown()
+				break
+			end
+		end
+	end
 end
 
 
