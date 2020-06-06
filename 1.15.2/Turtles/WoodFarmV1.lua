@@ -71,16 +71,20 @@ local function plantTree()
 	turtle.select(2)
 
 	local item = turtle.getItemDetail()
-	if endsWith(item.name, "sapling") then
-		turtle.placeDown()
-	else
-		for i = 1, 16 do
-			turtle.select(i)
+	if item then
+		if endsWith(item.name, "sapling") then
+			turtle.placeDown()
+		else
+			for i = 1, 16 do
+				turtle.select(i)
 
-			item = turtle.getItemDetail()
-			if endsWith(item.name, "sapling") then
-				turtle.placeDown()
-				break
+				local item = turtle.getItemDetail()
+				if item then
+					if endsWith(item.name, "sapling") then
+						turtle.placeDown()
+						break
+					end
+				end
 			end
 		end
 	end
@@ -196,6 +200,7 @@ while true do
 		elseif endsWith(frontBlock.name, "leaves") then
 			turtle.dig()
 		elseif endsWith(frontBlock.name, "sapling") then
+			turtle.digUp()
 			turtle.up()
 			rednet.send(farmCentralComputerID, "fuel")
 		end
