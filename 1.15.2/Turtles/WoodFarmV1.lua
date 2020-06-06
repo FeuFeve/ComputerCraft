@@ -59,18 +59,10 @@ local function dropInventoryDown(from, to)
 	from = from or 1
 	to = to or 16
 
-	if from == 1 and to == 16 then
-		write("Dropping all the inventory inside of the the chest below...")
-	else
-		write("Dropping the inventory from slot "..from.." to "..to.."...")
-	end
-
 	for i = from, to do
 		turtle.select(i)
 		turtle.dropDown()
 	end
-
-	print(" Done.")
 end
 
 
