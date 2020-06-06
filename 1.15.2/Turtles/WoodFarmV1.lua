@@ -3,6 +3,10 @@
 -------------------------
 
 
+rednet.open("left") -- TO CHANGE
+farmCentralComputerID = 1 -- TO CHANGE
+
+
 -- Used to know if a certain bloc is a log ("minecraft:oak_log" for example)
 local function endsWith(str, ending)
    return ending == "" or str:sub(-#ending) == ending
@@ -12,6 +16,8 @@ end
 -- Used to refuel the turtle by checking each slot of the inventory
 -- If specified, the fuelThreshold indicates the fuel level the turtle has to have before going back to work
 local function checkFuel(fuelThreshold)
+	updateMessage("Searching for a fuel source...")
+
 	fuelThreshold = fuelThreshold or 1
 	local fuelLevel = turtle.getFuelLevel()
 
@@ -35,6 +41,8 @@ local function checkFuel(fuelThreshold)
 			end
 		end
 	end
+	
+	updateMessage("Working...")
 end
 
 
@@ -149,13 +157,18 @@ local function init()
 end
 
 
+-- Used to display a message on the turtle's screen
+local function updateMessage(message)
+	term.clear()
+	term.setCursorPos(2, 2)
+	write(message)
+end
+
+
 
 -- Main
 local success, frontBlock, topBlock, bottomBlock
 local fuelThreshold = 200
-
-rednet.open("left")
-farmCentralComputerID = 1 -- TO CHANGE
 
 init()
 
@@ -191,24 +204,12 @@ while true do
 
 		elseif topBlock.name == "minecraft:green_wool" then
 			-- Get saplings until the chest is empty or the turtle has at least 16
-			write("Collecting saplings in the chest below...")
 
 			turtle.select(2)
 			turtle.suckDown()
-			local saplingsCount = turtle.getItemCount(2)
-
-			while saplingsCount < 16 do
-				turtle.dropDown()
-				turtle.suckDown()
-				saplingsCount = turtle.getItemCount(2)
-			end
-
-			print("Done (has "..turtle.getItemCount(2).." saplings).")
 
 		elseif topBlock.name == "minecraft:black_wool" then
 			-- Get a fuel source from the chest under and refuel until a certain threshold is exceeded
-			write("Collecting a fuel source in the chest below and refueling the turtle...")
-
 			turtle.select(1)
 			turtle.suckDown()
 			local fuelLevel = turtle.getFuelLevel()
@@ -220,8 +221,6 @@ while true do
 				turtle.dropDown()
 				turtle.suckDown()
 			end
-
-			print("Done (fuel level: "..turtle.getFuelLevel()..", fuel sources: "..turtle.getItemCount(1)..").")
 		end
 	end
 
