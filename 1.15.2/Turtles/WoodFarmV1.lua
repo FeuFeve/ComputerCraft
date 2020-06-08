@@ -56,6 +56,8 @@ end
 
 -- Used to drop the turtle's inventory in a chest located under the turtle
 local function dropInventoryDown(from, to)
+	checkFuel(100) -- Ensure that the turtle has at least 100 fuel before emptying its inventory
+
 	from = from or 1
 	to = to or 16
 
