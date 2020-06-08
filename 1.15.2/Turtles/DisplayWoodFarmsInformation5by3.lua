@@ -13,9 +13,6 @@ term.clear()
 term.setCursorPos(2, 2)
 write("Displaying information about the wood farms...")
 
-m.setTextScale(1.5)
-m.setTextColor(colors.white)
-
 local logsChopped, treesCut, fuelUsed = 0, 0, 0
 
 function round(num, numDecimalPlaces)
@@ -33,6 +30,9 @@ end
 
 function display()
 	m.clear()
+
+	m.setTextScale(1.5)
+	m.setTextColor(colors.white)
 
 	m.setCursorPos(13, 2)
 	m.write("FARMS STATS")
