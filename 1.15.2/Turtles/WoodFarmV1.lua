@@ -97,6 +97,8 @@ end
 local function cutTree()
 	-- Cut the tree (go up)
 	while true do
+		checkFuel()
+
 		local success, topBlock = turtle.inspectUp()
 		if success then
 			if endsWith(topBlock.name, "log") then
@@ -105,8 +107,6 @@ local function cutTree()
 
 				turtle.up()
 				rednet.send(farmCentralComputerID, "fuel")
-
-				checkFuel()
 			else
 				break
 			end
@@ -117,6 +117,8 @@ local function cutTree()
 
 	-- Go back down, cut the last log (trunk) and replace it with a sapling
 	while true do
+		checkFuel()
+
 		local success, bottomBlock = turtle.inspectDown()
 		if success then
 			if endsWith(bottomBlock.name, "log") then
@@ -135,7 +137,7 @@ local function cutTree()
 				turtle.digUp()
 				turtle.up()
 				rednet.send(farmCentralComputerID, "fuel")
-				break;
+				break
 			end
 		else
 			turtle.down()
