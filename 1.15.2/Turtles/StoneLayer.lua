@@ -14,10 +14,10 @@ local function forwardAndPlace()
 	turtle.forward()
 
 	local success = false
-	while !success do
+	while not success do
 		success = turtle.placeDown()
-		if !success then
-			index = index + 1
+		if not success then
+			index = (index) % 16 + 1
 			turtle.select(index)
 		end
 	end
@@ -38,7 +38,7 @@ while true do
 				break
 			end
 
-			if index % 2 == 1 then
+			if line % 2 == 1 then
 				turtle.turnLeft()
 				forwardAndPlace()
 				turtle.turnLeft()
